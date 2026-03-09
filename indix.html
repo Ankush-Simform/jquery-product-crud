@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simform Project Manager</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="icon" href="images/favicon.webp" />
+
+    <style>
+      /* .navbar {
+        background-color: rgb(200, 135, 135);
+        font-weight: 550;
+      } */
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-light text-white">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white ms-2 ms-md-5">Simform</a>
+        <div class="d-flex">
+          <input
+            id="searchInput"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search..."
+          />
+          <button class="btn btn-success text-white me-2 me-md-5" type="button">
+            Search
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div id="head" class="container">
+      <h3>SIMFORM PROJECT MANAGEMENT SYSTEM</h3>
+    </div>
+    <select
+      id="filterSelect"
+      style="
+        border: 1px solid black;
+        position: relative;
+        left: 90%;
+        color: black;
+      "
+    >
+      <option>Filter</option>
+      <option id="ascId" value="id" data-s="asc">Sort by ID asc</option>
+      <option id="desId" value="id" data-s="des">Sort by ID</option>
+      <option id="ascName" value="name" data-s="asc">Sort By Name asc</option>
+      <option id="desName" value="name" data-s="des">Sort By Name</option>
+      <option id="ascPrice" value="price" data-s="asc">
+        Sort By Price asc
+      </option>
+      <option id="desPrice" value="price" data-s="des">Sort By Price</option>
+      <option id="ascDesc" value="desc" data-s="asc">Sort By Desc asc</option>
+      <option id="desDesc" value="desc" data-s="des">Sort By Desc</option>
+    </select>
+    <div
+      id="formContainer"
+      class="container mt-4 p-4 border rounded bg-light"
+      style="display: none"
+    >
+      <div class="row g-3">
+        <div class="col-12 col-md-3">
+          <input
+            type="text"
+            id="prodName"
+            class="form-control"
+            placeholder="Member Name"
+          />
+        </div>
+        <div class="col-12 col-md-2">
+          <input
+            type="number"
+            id="prodPrice"
+            class="form-control"
+            placeholder="Product-Price"
+          />
+        </div>
+        <div class="col-12 col-md-4">
+          <input
+            type="text"
+            id="prodDesc"
+            class="form-control"
+            placeholder="Role/Description"
+          />
+        </div>
+        <div class="col-12 col-md-3">
+          <input
+            type="file"
+            id="prodImage"
+            class="form-control"
+            accept="image/*"
+          />
+        </div>
+        <div class="col-12 text-end">
+          <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+          <button class="btn btn-success" onclick="saveProduct()" id="saveBtn">
+            Submit & Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid px-2 px-md-5 mt-4">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th colspan="2" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="imagePreview" style="display: none">
+      <img src="" alt="image" id="imagePreview" />
+    </div>
+    <div class="container pb-5">
+      <div
+        class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3 mt-3"
+      >
+        <button class="btn btn-primary px-4" id="openFormBtn">
+          Add Product
+        </button>
+        <button class="btn btn-danger px-4" onclick="clearAll()">
+          Clear All Data
+        </button>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      $(".navbar").css({
+        "background-color": "rgb(200,135,135)",
+        "font-weight": "550",
+      });
+
+      $("#head").css({
+        padding: "2.5%",
+        color: "rgb(230,103,124)",
+        "text-align": "center",
+      });
+
+      $(".product-img").css({
+        height: "80px",
+        width: "100px",
+        "object-fit": "cover",
+        "border-radius": "5px",
+      });
+
+      // $("#formContainer").css({
+      //   transition: "all 0.3s ease-in-out",
+      // });
+    </script>
+
+    <script src="js/main.js" type="module" defer></script>
+  </body>
+</html>
