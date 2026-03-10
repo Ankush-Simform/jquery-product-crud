@@ -6,6 +6,24 @@ import {
   resetIdCounter,
 } from "./db.js";
 
+  $(".navbar").css({
+        "background-color": "rgb(200,135,135)",
+        "font-weight": "550",
+      });
+
+      $("#head").css({
+        padding: "2.5%",
+        color: "rgb(230,103,124)",
+        "text-align": "center",
+      });
+
+      $(".product-img").css({
+        height: "80px",
+        width: "100px",
+        "object-fit": "cover",
+        "border-radius": "5px",
+      });
+
 import { debounce, toggleForm } from "./helpers.js";
 
 $(document).ready(function () {
